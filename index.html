@@ -80,40 +80,12 @@
       max-width: 500px;
       line-height: 1.6;
     }
-
-    #playButton {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      font-size: 1.6em;
-      background: #fff;
-      border: none;
-      border-radius: 50%;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      padding: 10px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      z-index: 10;
-    }
-
-    #playButton:hover {
-      transform: scale(1.1);
-    }
   </style>
 </head>
 <body>
   <h1>Milda & Andre 💖</h1>
   <p id="pageCount"></p>
   <p id="exactTime"></p>
-
-  <!-- Music control button -->
-  <button id="playButton" title="Play music">🎵</button>
-
-  <!-- Romantic background music -->
- <audio id="bgMusic" loop>
-  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kevin_MacLeod/Calming/Calming_-_Kevin_MacLeod.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
 
   <!-- Poem -->
   <p class="poem"><em>
@@ -162,7 +134,6 @@
 
     document.getElementById('exactTime').innerHTML = timeText;
 
-    // Floating hearts
     const heartSymbols = ['💗','💘','💞','❤️','💕','💓'];
     for (let i = 0; i < 6; i++) {
       const heart = document.createElement('div');
@@ -174,7 +145,6 @@
       document.body.appendChild(heart);
     }
 
-    // Rising bubble hearts
     function createBubbleHeart() {
       const heart = document.createElement('div');
       heart.className = 'bubble-heart';
@@ -186,15 +156,6 @@
     }
 
     setInterval(createBubbleHeart, 1000);
-
-    // Music play handler
-    const playButton = document.getElementById('playButton');
-    const bgMusic = document.getElementById('bgMusic');
-
-    playButton.addEventListener('click', () => {
-      bgMusic.play();
-      playButton.style.display = 'none';
-    });
   </script>
 </body>
 </html>
