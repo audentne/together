@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Milda & Andre together</title>
+  <title>Milda & Andre</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&display=swap" rel="stylesheet">
@@ -72,21 +72,36 @@
         opacity: 0;
       }
     }
+
+    .poem {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 2em;
+      max-width: 500px;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
-  <h1>Milda & Andre together 💖</h1>
+  <h1>Milda & Andre 💖</h1>
   <p id="pageCount"></p>
   <p id="exactTime"></p>
 
   <!-- Romantic background music -->
-  <audio autoplay loop volume="0.05">
+  <audio autoplay loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/03/13/audio_769d259b45.mp3?filename=romantic-piano-144186.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
+  <!-- Floating poem at bottom -->
+  <p class="poem">
+    Every day with you, a page I turn,<br />
+    In your eyes, a world I learn.<br />
+    No need for chapters, plots, or ends—<br />
+    Just us, two hearts, and time that bends.
+  </p>
+
   <script>
-    // Book logic
     const startDate = new Date(2025, 0, 15); // 15 Jan 2025
     const today = new Date();
 
@@ -110,7 +125,7 @@
 
     const bold = (text) => `<span class="bold">${text}</span>`;
 
-    document.getElementById('pageCount').innerHTML = `You are on page ${bold(totalDays)} of your book 📖`;
+    document.getElementById('pageCount').innerHTML = `You are on page ${bold(totalDays)} 📖`;
 
     let timeText = '';
     if (years >= 1) {
@@ -121,7 +136,6 @@
 
     document.getElementById('exactTime').innerHTML = timeText;
 
-    // Dynamic hearts
     const heartSymbols = ['💗','💘','💞','❤️','💕','💓'];
     for (let i = 0; i < 6; i++) {
       const heart = document.createElement('div');
@@ -133,7 +147,6 @@
       document.body.appendChild(heart);
     }
 
-    // Floating bubble hearts
     function createBubbleHeart() {
       const heart = document.createElement('div');
       heart.className = 'bubble-heart';
@@ -141,10 +154,7 @@
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.bottom = '-2vh';
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 6000);
+      setTimeout(() => heart.remove(), 6000);
     }
 
     setInterval(createBubbleHeart, 1000);
