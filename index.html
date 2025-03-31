@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Milda & Andre together</title>
 
-  <!-- Fonts: Dancing Script + Quicksand -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&display=swap" rel="stylesheet">
 
   <style>
@@ -13,26 +13,64 @@
       font-family: 'Quicksand', sans-serif;
       background: #fff0f5;
       color: #333;
+      overflow: hidden;
+      margin: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
       text-align: center;
-      padding: 20px;
     }
 
     h1 {
       font-family: 'Dancing Script', cursive;
       font-size: 3em;
-      margin-bottom: 0.5em;
       color: #b03060;
+      margin-bottom: 0.5em;
     }
 
     p {
       font-size: 1.6em;
       margin: 0.3em 0;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 2em;
+      opacity: 0.8;
+      animation: float 4s ease-in-out infinite;
+      color: #ff4d6d;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    .bubble-heart {
+      position: absolute;
+      font-size: 1.4em;
+      color: #ff69b4;
+      opacity: 0.9;
+      animation: rise 6s linear forwards;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -41,7 +79,14 @@
   <p id="pageCount"></p>
   <p id="exactTime"></p>
 
+  <!-- Romantic background music -->
+  <audio autoplay loop volume="0.05">
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/13/audio_769d259b45.mp3?filename=romantic-piano-144186.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
   <script>
+    // Book logic
     const startDate = new Date(2025, 0, 15); // 15 Jan 2025
     const today = new Date();
 
@@ -63,8 +108,46 @@
       months += 12;
     }
 
-    document.getElementById('pageCount').textContent = `You are on page ${totalDays} of your book together 📖`;
-    document.getElementById('exactTime').textContent = `That means: ${years} year${years !== 1 ? 's' : ''}, ${months} month${months !== 1 ? 's' : ''}, and ${days} day${days !== 1 ? 's' : ''} together`;
+    const bold = (text) => `<span class="bold">${text}</span>`;
+
+    document.getElementById('pageCount').innerHTML = `You are on page ${bold(totalDays)} of your book 📖`;
+
+    let timeText = '';
+    if (years >= 1) {
+      timeText += `${bold(years)} year${years !== 1 ? 's' : ''}, `;
+    }
+    timeText += `${bold(months)} month${months !== 1 ? 's' : ''}`;
+    timeText += ` & ${bold(days)} day${days !== 1 ? 's' : ''} together`;
+
+    document.getElementById('exactTime').innerHTML = timeText;
+
+    // Dynamic hearts
+    const heartSymbols = ['💗','💘','💞','❤️','💕','💓'];
+    for (let i = 0; i < 6; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = heartSymbols[i % heartSymbols.length];
+      heart.style.top = Math.random() * 80 + '%';
+      heart.style.left = Math.random() * 90 + '%';
+      heart.style.animationDelay = `${Math.random() * 4}s`;
+      document.body.appendChild(heart);
+    }
+
+    // Floating bubble hearts
+    function createBubbleHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'bubble-heart';
+      heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.bottom = '-2vh';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(createBubbleHeart, 1000);
   </script>
 </body>
 </html>
