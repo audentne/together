@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Milda & Andre</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand&display=swap" rel="stylesheet">
 
   <style>
@@ -23,23 +22,19 @@
       height: 100vh;
       text-align: center;
     }
-
     h1 {
       font-family: 'Dancing Script', cursive;
       font-size: 3em;
       color: #b03060;
       margin-bottom: 0.5em;
     }
-
     p {
       font-size: 1.6em;
       margin: 0.3em 0;
     }
-
     .bold {
       font-weight: bold;
     }
-
     .heart {
       position: absolute;
       font-size: 2em;
@@ -47,13 +42,11 @@
       animation: float 4s ease-in-out infinite;
       color: #ff4d6d;
     }
-
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
       100% { transform: translateY(0); }
     }
-
     .bubble-heart {
       position: absolute;
       font-size: 1.4em;
@@ -61,18 +54,10 @@
       opacity: 0.9;
       animation: rise 6s linear forwards;
     }
-
     @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) scale(0.5);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
     }
-
     .poem {
       font-size: 0.9em;
       color: #555;
@@ -86,23 +71,11 @@
   <h1>Milda & Andre 💖</h1>
   <p id="pageCount"></p>
   <p id="exactTime"></p>
-
-  <!-- Poem -->
-  <p class="poem"><em>
-    It started on an island kissed by sea,<br />
-    Where hearts aligned so naturally.<br />
-    From sandy shores to soft goodbyes,<br />
-    We wrote our love beneath the skies.<br />
-    Now winter fades with distant lands in view,<br />
-    We dream, we plan — the world, just us two.<br />
-    And as each page turns bright and new,<br />
-    This story, Milda, starts with you.
-  </em></p>
+  <p id="dailyPoem" class="poem"></p>
 
   <script>
     const startDate = new Date(2025, 0, 15);
     const today = new Date();
-
     const diffTime = today - startDate;
     const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
@@ -115,23 +88,18 @@
       const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
       days += prevMonth.getDate();
     }
-
     if (months < 0) {
       years--;
       months += 12;
     }
 
     const bold = (text) => `<span class="bold">${text}</span>`;
-
     document.getElementById('pageCount').innerHTML = `You are on page ${bold(totalDays)} 📖`;
 
     let timeText = '';
-    if (years >= 1) {
-      timeText += `${bold(years)} year${years !== 1 ? 's' : ''}, `;
-    }
+    if (years >= 1) timeText += `${bold(years)} year${years !== 1 ? 's' : ''}, `;
     timeText += `${bold(months)} month${months !== 1 ? 's' : ''}`;
     timeText += ` & ${bold(days)} day${days !== 1 ? 's' : ''} together`;
-
     document.getElementById('exactTime').innerHTML = timeText;
 
     const heartSymbols = ['💗','💘','💞','❤️','💕','💓'];
@@ -144,7 +112,6 @@
       heart.style.animationDelay = `${Math.random() * 4}s`;
       document.body.appendChild(heart);
     }
-
     function createBubbleHeart() {
       const heart = document.createElement('div');
       heart.className = 'bubble-heart';
@@ -154,8 +121,48 @@
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
     }
-
     setInterval(createBubbleHeart, 1000);
+
+    const dailyMessages = [
+      "Today the stars remind you: your love is a journey, not a destination.",
+      "Let your laughter be the light in each other's day.",
+      "Together you are home, no matter where the map leads.",
+      "The universe smiles when two souls choose each other every single day.",
+      "Let your love be your compass. The rest will follow.",
+      "In each glance, a thousand unsaid 'I love yous' live.",
+      "You are writing a love story that the cosmos envies.",
+      "Some days are for dreaming. Others, for dancing. Today, for both.",
+      "Even the smallest moment shared becomes magic when love is present.",
+      "Love is not measured in grand gestures, but in everyday gentleness.",
+      "You are the poetry the sky has always tried to write.",
+      "Today is another page in your never-ending chapter of us.",
+      "Hand in hand, you make ordinary days feel like miracles.",
+      "When your eyes meet, the world pauses to listen.",
+      "Your love speaks in glances, breathes in silence.",
+      "Every sunset is jealous of the colors between you.",
+      "You are not just lovers. You are fellow dreamers on the same cloud.",
+      "A soft kiss. A long look. A forever beginning again.",
+      "Let your love echo louder than the world's noise.",
+      "What you share cannot be mapped, only felt.",
+      "Your journey isn't measured in miles, but in moments like this.",
+      "You two are a constellation no one else can trace.",
+      "Some bonds aren't made — they are remembered from before time.",
+      "Today, choose each other again. Tomorrow will thank you.",
+      "In each other's arms, you are home and whole.",
+      "When your souls dance, even time holds its breath.",
+      "Let today be about holding tighter and dreaming bolder.",
+      "What the stars whispered, your hearts already knew.",
+      "In love’s quietest hour, you shine the brightest.",
+      "Today, the universe leans closer just to watch you."
+    ];
+
+    const startMessagesDate = new Date(2025, 2, 31);
+    const messageIndex = Math.floor((today - startMessagesDate) / (1000 * 60 * 60 * 24));
+    if (messageIndex >= 0 && messageIndex < dailyMessages.length) {
+      document.getElementById("dailyPoem").innerHTML = `<em>${dailyMessages[messageIndex]}</em>`;
+    } else {
+      document.getElementById("dailyPoem").innerHTML = `<em>Your love is timeless. The stars are still writing today’s message…</em>`;
+    }
   </script>
 </body>
 </html>
