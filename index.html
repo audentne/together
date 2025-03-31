@@ -80,6 +80,25 @@
       max-width: 500px;
       line-height: 1.6;
     }
+
+    #playButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 1.6em;
+      background: #fff;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 10;
+    }
+
+    #playButton:hover {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -87,14 +106,17 @@
   <p id="pageCount"></p>
   <p id="exactTime"></p>
 
+  <!-- Music control button -->
+  <button id="playButton" title="Play music">🎵</button>
+
   <!-- Romantic background music -->
-  <audio autoplay loop>
+  <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/03/13/audio_769d259b45.mp3?filename=romantic-piano-144186.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Floating poem at bottom -->
-    <p class="poem"><em>
+  <!-- Poem -->
+  <p class="poem"><em>
     It started on an island kissed by sea,<br />
     Where hearts aligned so naturally.<br />
     From sandy shores to soft goodbyes,<br />
@@ -106,7 +128,7 @@
   </em></p>
 
   <script>
-    const startDate = new Date(2025, 0, 15); // 15 Jan 2025
+    const startDate = new Date(2025, 0, 15);
     const today = new Date();
 
     const diffTime = today - startDate;
@@ -140,6 +162,7 @@
 
     document.getElementById('exactTime').innerHTML = timeText;
 
+    // Floating hearts
     const heartSymbols = ['💗','💘','💞','❤️','💕','💓'];
     for (let i = 0; i < 6; i++) {
       const heart = document.createElement('div');
@@ -151,6 +174,7 @@
       document.body.appendChild(heart);
     }
 
+    // Rising bubble hearts
     function createBubbleHeart() {
       const heart = document.createElement('div');
       heart.className = 'bubble-heart';
@@ -162,6 +186,15 @@
     }
 
     setInterval(createBubbleHeart, 1000);
+
+    // Music play handler
+    const playButton = document.getElementById('playButton');
+    const bgMusic = document.getElementById('bgMusic');
+
+    playButton.addEventListener('click', () => {
+      bgMusic.play();
+      playButton.style.display = 'none';
+    });
   </script>
 </body>
 </html>
